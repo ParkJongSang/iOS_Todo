@@ -1,7 +1,6 @@
 # iOS_Todo
 
-- day 01
--- swift 문법 정리
+- day 01 (swift 문법 정리 01)
 1. Control Flow
 2. Operator
 3. Collections
