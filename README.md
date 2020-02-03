@@ -13,3 +13,14 @@
 10. Method
 11. Subscript
 12. Inheritance
+
+- day 02 (swift 문법 정리 02)
+1. Initializer / Deinitializer
+2. Optional Chaining
+3. Type Casting
+4. Extension
+5. Protocol
+6. Generic
+7. Error Handling
+8. ARC
+9. Access Control
