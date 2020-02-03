@@ -16,7 +16,6 @@ protocol Messagable{
 protocol Sendable : Messagable{
     var from : String? { get }
     var to : String { get }
-    var message : String? { get }
     
     func send()
 }
