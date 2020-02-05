@@ -109,6 +109,35 @@ class Calculator : UIView{
         return op=="+" || op=="-" || op=="/" || op=="*" || op=="%" || op=="=" || op == "+/-" || op=="AC" || op=="."
     }
 
+    func calcOper(number1 num1:Double?, number2 num2:Double?, op oper:String) -> Double?{
+        var ret: Double? = nil
+        var unwrapNum1: Double = 0.0
+        var unwrapNum2: Double = 0.0
+
+        if let tmp1 = num1 , let tmp2 = num2{
+            unwrapNum1 = tmp1
+            unwrapNum2 = tmp2
+        }
+
+        if oper == "+" {
+            ret = unwrapNum1 + unwrapNum2
+        }
+        else if oper == "-" {
+            ret = unwrapNum1 - unwrapNum2
+        }
+        else if oper == "*" {
+            ret = unwrapNum1 * unwrapNum2
+        }
+        else if oper == "/" {
+            ret = unwrapNum1 / unwrapNum2
+        }
+        else if oper == "%" {
+            ret = unwrapNum1.remainder(dividingBy: unwrapNum2)
+        }
+
+        return ret
+    }
+
     @objc func inputNumber(_ sender:UIButton){
         if self.displayLabel.text?.count ?? -1 <= 0,  sender.title(for: .normal) ?? "" == "0"{
             return
@@ -149,31 +178,10 @@ class Calculator : UIView{
 
         newValue = Double(currnetNumber) ?? 0.0
         if currentOp == "=" {
-            if currentOperator == "+" {
-                newValue = Double(currnetNumber) ?? 0.0
-                oldValue = (oldValue ?? 0.0) + (newValue ?? 0.0)
-                displayLabel.text = String(oldValue ?? 0.0)
+            if currentOperator == "+" || currentOperator == "-"  || currentOperator == "*" || currentOperator == "/" || currentOperator == "%" {
+                oldValue = calcOper(number1: oldValue, number2: newValue, op: currentOperator)
             }
-            else if currentOperator == "-" {
-                newValue = Double(currnetNumber) ?? 0.0
-                oldValue = (oldValue ?? 0.0) - (newValue ?? 0.0)
-                displayLabel.text = String(oldValue ?? 0.0)
-            }
-            else if currentOperator == "*" {
-                newValue = Double(currnetNumber) ?? 0.0
-                oldValue = (oldValue ?? 0.0) * (newValue ?? 0.0)
-                displayLabel.text = String(oldValue ?? 0.0)
-            }
-            else if currentOperator == "/" {
-                newValue = Double(currnetNumber) ?? 0.0
-                oldValue = (oldValue ?? 0.0) / (newValue ?? 0.0)
-                displayLabel.text = String(oldValue ?? 0.0)
-            }
-            else if currentOperator == "%" {
-                newValue = Double(currnetNumber) ?? 0.0
-                oldValue = (oldValue ?? 0.0).remainder(dividingBy: newValue ?? 0.0)
-                displayLabel.text = String(oldValue ?? 0.0)
-            }
+            displayLabel.text = String(oldValue ?? 0.0)
             newValue = nil
             oldValue = nil
         }
@@ -185,34 +193,5 @@ class Calculator : UIView{
         }
 
         currentOperator = currentOp
-    }
-
-    func calcOper(number1 num1:Double?, number2 num2:Double?, op oper:String) -> Double?{
-        var ret: Double? = nil
-        var unwrapNum1: Double = 0.0
-        var unwrapNum2: Double = 0.0
-
-        if let tmp1 = num1 , let tmp2 = num2{
-            unwrapNum1 = tmp1
-            unwrapNum2 = tmp2
-        }
-
-        if oper == "+" {
-            ret = unwrapNum1 + unwrapNum2
-        }
-        else if oper == "-" {
-            ret = unwrapNum1 - unwrapNum2
-        }
-        else if oper == "*" {
-            ret = unwrapNum1 * unwrapNum2
-        }
-        else if oper == "/" {
-            ret = unwrapNum1 / unwrapNum2
-        }
-        else if oper == "%" {
-            ret = unwrapNum1.remainder(dividingBy: unwrapNum2)
-        }
-
-        return ret
     }
 }
